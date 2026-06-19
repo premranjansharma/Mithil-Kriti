@@ -54,7 +54,7 @@ function LogoMark() {
 // ─── Decorative Motif Border ──────────────────────────────────────────────────
 function MotifBorder() {
   return (
-    <div className="overflow-hidden h-2 bg-[#0D0D0D]">
+    <div className="overflow-hidden h-2 bg-[#9a8282]">
       <svg
         viewBox="0 0 1100 8"
         preserveAspectRatio="none"
@@ -91,22 +91,23 @@ export default function Navbar() {
       <div className="flex items-center justify-between px-6 lg:px-8 h-[76px] border-b border-[#2a2a2a] gap-6">
 
         {/* Logo */}
-        <Link href="/" className="flex items-center gap-3 flex-shrink-0 group">
-          <Image
+        <Link href="/" className="flex items-center gap-2 min-w-0 group">
+ <Image
   src="/logo.png"
   alt="Mithila Kriti Logo"
-  width={50}
-  height={50}
+  width={45}
+  height={45}
+  style={{ width: 'auto', height: 'auto' }}
   className="object-contain"
 />
           <div className="flex flex-col gap-[2px]">
             <span
-              className="text-[#E8D5A0] text-[22px] leading-none tracking-[0.04em]"
+              className="text-[#E8D5A0] text-[11px] md:text-[22px] leading-none"
               style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 600 }}
             >
               Mithila Kriti
             </span>
-            <span className="text-[#7a6a4a] text-[9px] tracking-[0.22em] uppercase font-normal">
+            <span className="text-[#7a6a4a] text-[4px] tracking-[0.22em] uppercase font-normal">
               Handpainted with love
             </span>
             <div className="h-px bg-[#B8922A] w-full mt-[3px]" />
