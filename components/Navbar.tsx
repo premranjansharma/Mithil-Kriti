@@ -2,6 +2,7 @@
 
 import Link from "next/link";
 import { useState } from "react";
+import { useRouter } from "next/navigation";
 import {
   Search,
   Heart,
@@ -10,7 +11,6 @@ import {
   Sparkles,
   Menu,
   X,
-  Dot,
 } from "lucide-react";
 import Image from "next/image";
 
@@ -32,24 +32,6 @@ const CATEGORY_LINKS = [
   { label: "Gift Sets", href: "/gifts" },
   { label: "Under ₹999", href: "/sale" },
 ];
-
-// ─── Madhubani Yantra Logo Mark ───────────────────────────────────────────────
-function LogoMark() {
-  return (
-    <svg width="34" height="34" viewBox="0 0 32 32" fill="none" aria-hidden="true">
-      <rect x="1" y="1" width="30" height="30" stroke="#B8922A" strokeWidth="0.5" />
-      <rect x="5" y="5" width="22" height="22" stroke="#B8922A" strokeWidth="0.5" opacity={0.4} />
-      <circle cx="16" cy="16" r="7" stroke="#B8922A" strokeWidth="0.5" />
-      <circle cx="16" cy="16" r="2.5" fill="#B8922A" />
-      <line x1="16" y1="1" x2="16" y2="31" stroke="#B8922A" strokeWidth="0.5" opacity={0.3} />
-      <line x1="1" y1="16" x2="31" y2="16" stroke="#B8922A" strokeWidth="0.5" opacity={0.3} />
-      <circle cx="16" cy="5" r="1.5" fill="#B8922A" opacity={0.6} />
-      <circle cx="16" cy="27" r="1.5" fill="#B8922A" opacity={0.6} />
-      <circle cx="5" cy="16" r="1.5" fill="#B8922A" opacity={0.6} />
-      <circle cx="27" cy="16" r="1.5" fill="#B8922A" opacity={0.6} />
-    </svg>
-  );
-}
 
 // ─── Decorative Motif Border ──────────────────────────────────────────────────
 function MotifBorder() {
@@ -76,8 +58,20 @@ function MotifBorder() {
 
 // ─── Main Navbar ──────────────────────────────────────────────────────────────
 export default function Navbar() {
+  const router = useRouter();
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [cartCount] = useState(3);
+  const [searchQuery, setSearchQuery] = useState("");
+
+  const handleSearch = (e: React.FormEvent<HTMLFormElement>): void => {
+    e.preventDefault();
+    if (searchQuery.trim()) {
+      router.push(`/shop?search=${encodeURIComponent(searchQuery.trim())}`);
+      setSearchQuery("");
+      setMobileOpen(false);
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 bg-[#0D0D0D] font-sans">
@@ -92,14 +86,14 @@ export default function Navbar() {
 
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2 min-w-0 group">
- <Image
-  src="/logo.png"
-  alt="Mithila Kriti Logo"
-  width={45}
-  height={45}
-  style={{ width: 'auto', height: 'auto' }}
-  className="object-contain"
-/>
+          <Image
+            src="/logo.png"
+            alt="Mithila Kriti Logo"
+            width={45}
+            height={45}
+            style={{ width: 'auto', height: 'auto' }}
+            className="object-contain"
+          />
           <div className="flex flex-col gap-[2px]">
             <span
               className="text-[#E8D5A0] text-[11px] md:text-[22px] leading-none"
@@ -130,16 +124,20 @@ export default function Navbar() {
         {/* Right Side Actions */}
         <div className="flex items-center gap-1 flex-shrink-0">
 
-          {/* Search — hidden on mobile */}
-          <div className="hidden md:flex items-center gap-2 border border-[#2a2a2a] rounded-sm px-3 py-[7px] hover:border-[#B8922A] transition-colors duration-200 group">
-            <Search size={14} className="text-[#5a5040]" aria-hidden="true" />
+          {/* Search — hidden on mobile, with router navigation */}
+          <form onSubmit={handleSearch} className="hidden md:flex items-center gap-2 border border-[#2a2a2a] rounded-sm px-3 py-[7px] hover:border-[#B8922A] transition-colors duration-200 group">
+            <button type="submit" aria-label="Search">
+              <Search size={14} className="text-[#5a5040]" aria-hidden="true" />
+            </button>
             <input
               type="text"
               placeholder="Search…"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-transparent outline-none text-[11px] text-[#9a9080] placeholder-[#4a4030] tracking-[0.06em] w-32 font-sans"
               aria-label="Search products"
             />
-          </div>
+          </form>
 
           <div className="w-px h-5 bg-[#2a2a2a] mx-1 hidden md:block" aria-hidden="true" />
 
@@ -227,16 +225,20 @@ export default function Navbar() {
           className="lg:hidden bg-[#0D0D0D] border-t border-[#2a2a2a] px-6 pb-6"
           aria-label="Mobile navigation"
         >
-          {/* Mobile Search */}
-          <div className="flex items-center gap-2 border border-[#2a2a2a] rounded-sm px-3 py-2 mt-4 hover:border-[#B8922A] transition-colors duration-200">
-            <Search size={14} className="text-[#5a5040]" aria-hidden="true" />
+          {/* Mobile Search — with router navigation */}
+          <form onSubmit={handleSearch} className="flex items-center gap-2 border border-[#2a2a2a] rounded-sm px-3 py-2 mt-4 hover:border-[#B8922A] transition-colors duration-200">
+            <button type="submit" aria-label="Search">
+              <Search size={14} className="text-[#5a5040]" aria-hidden="true" />
+            </button>
             <input
               type="text"
               placeholder="Search…"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
               className="bg-transparent outline-none text-[11px] text-[#9a9080] placeholder-[#4a4030] tracking-[0.06em] w-full font-sans"
               aria-label="Search products"
             />
-          </div>
+          </form>
 
           {/* Mobile Nav Links */}
           <nav className="mt-4 flex flex-col gap-0">
