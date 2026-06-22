@@ -1,6 +1,8 @@
 "use client";
 
 import { useState } from "react";
+import { useRouter } from "next/navigation";
+import { Button } from "@/components/ui/button";
 
 interface Product {
   id: number;
@@ -41,6 +43,7 @@ export default function CartPage() {
   const [appliedCoupon, setAppliedCoupon] = useState<string | null>(null);
   const [couponStatus, setCouponStatus] = useState<"idle" | "success" | "error">("idle");
   const [couponMsg, setCouponMsg] = useState("");
+  const router = useRouter();
 
   const subtotal = products.reduce((acc, p) => acc + p.price * p.qty, 0);
 
@@ -249,9 +252,13 @@ export default function CartPage() {
             <span>{fmt(total)}</span>
           </div>
 
-          <button className="w-full mt-4 py-3 bg-blue-600 hover:bg-blue-700 text-white text-sm font-medium rounded-lg transition-colors flex items-center justify-center gap-2">
-            🔒 Checkout karo
-          </button>
+          <Button
+  size="lg"
+  className="w-full mt-4"
+  onClick={() => router.push("/checkout")}
+>
+  🔒 Checkout karo
+</Button>
 
           {appliedCoupon && couponDiscount > 0 && (
             <div className="mt-3 text-center text-xs text-green-700 bg-green-50 rounded-full py-2">

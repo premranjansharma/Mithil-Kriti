@@ -444,14 +444,33 @@ export default function CheckoutPage() {
   const selectedAddress = MOCK_ADDRESSES.find((a) => a.id === selectedAddressId)!;
 
   // Handle order placement
-  const handlePlaceOrder = () => {
+ const handlePlaceOrder = async () => {
+  try {
     setIsPlacing(true);
-    // Simulate API call
-    setTimeout(() => {
-      setIsPlacing(false);
-      setIsPlaced(true);
-    }, 1400);
-  };
+
+    const res = await fetch("/api/orders", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        userId: "test123",
+        items: MOCK_CART_ITEMS,
+        total: summary.total,
+      }),
+    });
+
+    if (!res.ok) {
+      throw new Error("Order save failed");
+    }
+
+    setIsPlaced(true);
+  } catch (error) {
+    console.error("Order Error:", error);
+  } finally {
+    setIsPlacing(false);
+  }
+};
 
   // Show success screen
   if (isPlaced) {
