@@ -89,8 +89,8 @@ export default function Navbar() {
           <Image
             src="/logo.png"
             alt="Mithila Kriti Logo"
-            width={45}
-            height={45}
+            width={40}
+            height={40}
             style={{ width: 'auto', height: 'auto' }}
             className="object-contain"
           />
