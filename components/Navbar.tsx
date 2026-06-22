@@ -96,7 +96,7 @@ export default function Navbar() {
           />
           <div className="flex flex-col gap-[2px]">
             <span
-              className="text-[#E8D5A0] text-[11px] md:text-[22px] leading-none"
+              className="text-[#E8D5A0] text-[11px] md:text-[10px] leading-none"
               style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 600 }}
             >
               Mithila Kriti
