@@ -1,5 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server';
-import { connectDB, getModel } from '@/lib/mongodb';
+import { connectDB } from '@/lib/mongodb';
+import mongoose from 'mongoose';
 
 export async function GET(
   req: NextRequest,
@@ -7,7 +8,7 @@ export async function GET(
 ) {
   try {
     await connectDB();
-    const Product = getModel('Product');
+    const Product = mongoose.models['Product'];
 
     const { slug } = await params;
     const { searchParams } = req.nextUrl;
