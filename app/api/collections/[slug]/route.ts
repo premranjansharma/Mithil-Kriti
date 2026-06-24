@@ -19,19 +19,12 @@ export async function GET(
     const filter = { category: slug, is_active: true };
 
     const [products, total] = await Promise.all([
-      Product.find(filter)
-        .sort({ [sort]: order })
-        .skip((page - 1) * limit)
-        .limit(limit)
-        .lean(),
+      Product.find(filter).sort({ [sort]: order }).skip((page - 1) * limit).limit(limit).lean(),
       Product.countDocuments(filter),
     ]);
 
     if (total === 0) {
-      return NextResponse.json(
-        { error: `'${slug}' collection mein koi product nahi mila` },
-        { status: 404 }
-      );
+      return NextResponse.json({ error: `'${slug}' collection mein koi product nahi mila` }, { status: 404 });
     }
 
     return NextResponse.json({
