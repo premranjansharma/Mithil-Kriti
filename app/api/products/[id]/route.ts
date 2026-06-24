@@ -1,18 +1,20 @@
 import { NextRequest, NextResponse } from 'next/server';
 import { connectDB } from '@/lib/mongodb';
-import Product from '@/models/Product';
+import mongoose from 'mongoose';
 
 export async function GET(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
+    const Product = mongoose.models['Product'];
+    const { id } = await params;
 
     const product = await Product.findOne({
       $or: [
-        { slug: params.id },
-        { _id: params.id.match(/^[a-f\d]{24}$/i) ? params.id : null },
+        { slug: id },
+        { _id: id.match(/^[a-f\d]{24}$/i) ? id : null },
       ],
       is_active: true,
     }).lean();
@@ -23,23 +25,22 @@ export async function GET(
 
     return NextResponse.json({ data: product });
   } catch (error) {
-    console.error('[GET /api/products/[id]]', error);
-    return NextResponse.json({ error: 'Product fetch karne mein error aaya' }, { status: 500 });
+    return NextResponse.json({ error: String(error) }, { status: 500 });
   }
 }
 
 export async function PATCH(
   req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
+    const Product = mongoose.models['Product'];
+    const { id } = await params;
     const body = await req.json();
 
     const updated = await Product.findByIdAndUpdate(
-      params.id,
-      { $set: body },
-      { new: true, runValidators: true }
+      id, { $set: body }, { new: true, runValidators: true }
     ).lean();
 
     if (!updated) {
@@ -48,22 +49,21 @@ export async function PATCH(
 
     return NextResponse.json({ data: updated });
   } catch (error) {
-    console.error('[PATCH /api/products/[id]]', error);
-    return NextResponse.json({ error: 'Product update karne mein error aaya' }, { status: 500 });
+    return NextResponse.json({ error: String(error) }, { status: 500 });
   }
 }
 
 export async function DELETE(
   _req: NextRequest,
-  { params }: { params: { id: string } }
+  { params }: { params: Promise<{ id: string }> }
 ) {
   try {
     await connectDB();
+    const Product = mongoose.models['Product'];
+    const { id } = await params;
 
     const updated = await Product.findByIdAndUpdate(
-      params.id,
-      { $set: { is_active: false } },
-      { new: true }
+      id, { $set: { is_active: false } }, { new: true }
     ).lean();
 
     if (!updated) {
@@ -72,7 +72,6 @@ export async function DELETE(
 
     return NextResponse.json({ message: 'Product delete ho gaya' });
   } catch (error) {
-    console.error('[DELETE /api/products/[id]]', error);
-    return NextResponse.json({ error: 'Product delete karne mein error aaya' }, { status: 500 });
+    return NextResponse.json({ error: String(error) }, { status: 500 });
   }
 }
