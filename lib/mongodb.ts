@@ -3,11 +3,10 @@ import mongoose from 'mongoose';
 
 if (!process.env.MONGODB_URI) throw new Error('MONGODB_URI define nahi hai');
 
-type MongooseCache = { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null };
-
-const globalWithMongoose = global as typeof globalThis & { mongoose: MongooseCache };
-
-const cached: MongooseCache = globalWithMongoose.mongoose ?? (globalWithMongoose.mongoose = { conn: null, promise: null });
+let cached: { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null } = {
+  conn: null,
+  promise: null,
+};
 
 const connectDB = async () => {
   if (cached.conn) return cached.conn;
