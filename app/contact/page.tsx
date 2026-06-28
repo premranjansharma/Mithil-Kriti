@@ -219,7 +219,7 @@ export default function ContactPage() {
               <div>
                 <p className="text-[10px] tracking-[0.18em] uppercase text-[#4a4438] font-medium mb-1">Email</p>
                 <a href="mailto:hello@mithilakriti.com" className="text-[13px] text-[#B8922A] hover:text-[#E8D5A0] transition-colors block">hello@mithilakriti.com</a>
-                <a href="mailto:orders@mithilakriti.com" className="text-[13px] text-[#B8922A] hover:text-[#E8D5A0] transition-colors block">orders@mithilakriti.com</a>
+              
               </div>
             </div>
 
@@ -230,7 +230,7 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="text-[10px] tracking-[0.18em] uppercase text-[#4a4438] font-medium mb-1">Phone</p>
-                <a href="tel:+917739412888" className="text-[13px] text-[#B8922A] hover:text-[#E8D5A0] transition-colors block">+91 77394 12888</a>
+           
                 <a href="tel:+917739740853" className="text-[13px] text-[#B8922A] hover:text-[#E8D5A0] transition-colors block">+91 77397 40853</a>
               </div>
             </div>
