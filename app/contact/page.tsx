@@ -3,7 +3,6 @@
 import { useState } from 'react';
 import Link from 'next/link';
 
-// ─── Icons ────────────────────────────────────────────────────────────────────
 const IconLocation = () => (
   <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
     <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/>
@@ -26,9 +25,6 @@ const IconChevron = ({ open }: { open: boolean }) => (
   </svg>
 );
 
-
-// ─── Types ────────────────────────────────────────────────────────────────────
-
 interface FormState {
   name: string;
   email: string;
@@ -37,26 +33,12 @@ interface FormState {
   message: string;
 }
 
-// ─── Data ─────────────────────────────────────────────────────────────────────
 const FAQS = [
-  { q: 'What are your shipping options?',       a: 'We offer standard shipping (3–5 business days) and express shipping (1–2 business days) throughout India. Free shipping on orders above ₹1,499.' },
-  { q: 'Do you ship internationally?',          a: 'Currently we ship within India only. International shipping is in the works — follow us for updates.' },
-  { q: 'What is your return policy?',           a: 'Returns accepted within 7 days of delivery if the product is unused and in original packaging. Contact us to initiate.' },
-  { q: 'How do I track my order?',              a: 'A tracking number is sent to your email once your order ships. You can also check order status in your account.' },
+  { q: 'What are your shipping options?',  a: 'We offer standard shipping (3–5 business days) and express shipping (1–2 business days) throughout India. Free shipping on orders above ₹1,499.' },
+  { q: 'Do you ship internationally?',     a: 'Currently we ship within India only. International shipping is in the works — follow us for updates.' },
+  { q: 'What is your return policy?',      a: 'Returns accepted within 7 days of delivery if the product is unused and in original packaging. Contact us to initiate.' },
+  { q: 'How do I track my order?',         a: 'A tracking number is sent to your email once your order ships. You can also check order status in your account.' },
 ];
-
-
-
-// ─── Sub-components ───────────────────────────────────────────────────────────
-function GoldRule() {
-  return (
-    <div className="flex items-center gap-3 my-8">
-      <div className="flex-1 h-px bg-linear-to-r from-transparent to-[#B8922A] opacity-20" />
-      <div className="w-1 h-1 rounded-full bg-[#B8922A] opacity-50" />
-      <div className="flex-1 h-px bg-linear-to-l from-transparent to-[#B8922A] opacity-20" />
-    </div>
-  );
-}
 
 function FaqItem({ q, a }: { q: string; a: string }) {
   const [open, setOpen] = useState(false);
@@ -80,10 +62,8 @@ function FaqItem({ q, a }: { q: string; a: string }) {
   );
 }
 
-
-// ─── Page ─────────────────────────────────────────────────────────────────────
 export default function ContactPage() {
-  const [form, setForm]   = useState<FormState>({ name: '', email: '', phone: '', subject: '', message: '' });
+  const [form, setForm] = useState<FormState>({ name: '', email: '', phone: '', subject: '', message: '' });
   const [toast, setToast] = useState(false);
 
   const update = (key: keyof FormState) => (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) =>
@@ -105,27 +85,19 @@ export default function ContactPage() {
   const labelCls = `block text-[10px] font-medium text-[#4a4438] tracking-[0.15em] uppercase mb-1.5`;
 
   return (
-    <main
-      className="bg-[#f0eaea] text-[#0d0d08] min-h-screen"
-      style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}
-    >
+    <main className="bg-[#f0eaea] text-[#0d0d08] min-h-screen" style={{ fontFamily: "'Inter', 'Helvetica Neue', sans-serif" }}>
       <div className="max-w-5xl mx-auto px-6 py-16">
 
-        {/* ── Hero ─────────────────────────────────────────────────────── */}
+        {/* Hero */}
         <div className="border border-[#1e1e1e] rounded-sm px-8 py-12 mb-8 relative overflow-hidden">
-          {/* gold corner accents */}
           <span className="absolute top-0 left-0 w-12 h-px bg-[#B8922A] opacity-60" />
           <span className="absolute top-0 left-0 h-12 w-px bg-[#B8922A] opacity-60" />
           <span className="absolute bottom-0 right-0 w-12 h-px bg-[#B8922A] opacity-60" />
           <span className="absolute bottom-0 right-0 h-12 w-px bg-[#B8922A] opacity-60" />
-
           <p className="text-[#B8922A] text-[10px] tracking-[0.28em] uppercase font-semibold mb-4">
             Mithila Kriti — Get in Touch
           </p>
-          <h1
-            className="text-[#d3c08d] text-4xl md:text-5xl mb-4 leading-tight"
-            style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500 }}
-          >
+          <h1 className="text-[#d3c08d] text-4xl md:text-5xl mb-4 leading-tight" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500 }}>
             Questions?<br />
             <span className="text-[#B8922A]">We're listening.</span>
           </h1>
@@ -134,18 +106,14 @@ export default function ContactPage() {
           </p>
         </div>
 
-        {/* ── Grid: Form + Info ─────────────────────────────────────────── */}
+        {/* Grid: Form + Info */}
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-6">
 
           {/* FORM */}
           <div className="border border-[#1a1a1a] rounded-sm p-7">
-            <h2
-              className="text-[#E8D5A0] text-[17px] mb-6 pb-4 border-b border-[#1a1a1a]"
-              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500 }}
-            >
+            <h2 className="text-[#E8D5A0] text-[17px] mb-6 pb-4 border-b border-[#1a1a1a]" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500 }}>
               Send Us a Message
             </h2>
-
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
                 <label className={labelCls}>Full Name *</label>
@@ -156,7 +124,6 @@ export default function ContactPage() {
                 <input className={inputCls} type="email" placeholder="you@email.com" value={form.email} onChange={update('email')} />
               </div>
             </div>
-
             <div className="grid grid-cols-2 gap-4 mb-4">
               <div>
                 <label className={labelCls}>Phone</label>
@@ -175,16 +142,14 @@ export default function ContactPage() {
                 </select>
               </div>
             </div>
-
             <div className="mb-5">
               <label className={labelCls}>Message *</label>
               <textarea className={`${inputCls} min-h-27.5 resize-y`} placeholder="Write your message…" value={form.message} onChange={update('message')} />
             </div>
-
             <button
               onClick={handleSubmit}
               className="w-full py-3 border border-[#B8922A] text-[#B8922A] text-[11px] tracking-[0.18em]
-                         uppercase font-semibold rounded-sm hover:bg-[#B8922A] hover:text-[#0C0C0C]
+                         uppercase font-semibold rounded-sm hover:bg-[#B8922A] hover:text-white
                          transition-colors duration-200"
             >
               Send Message →
@@ -193,10 +158,7 @@ export default function ContactPage() {
 
           {/* INFO */}
           <div className="border border-[#1a1a1a] rounded-sm p-7">
-            <h2
-              className="text-[#E8D5A0] text-[17px] mb-6 pb-4 border-b border-[#1a1a1a]"
-              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500 }}
-            >
+            <h2 className="text-[#E8D5A0] text-[17px] mb-6 pb-4 border-b border-[#1a1a1a]" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500 }}>
               Contact Mithila Kriti
             </h2>
 
@@ -219,7 +181,6 @@ export default function ContactPage() {
               <div>
                 <p className="text-[10px] tracking-[0.18em] uppercase text-[#4a4438] font-medium mb-1">Email</p>
                 <a href="mailto:hello@mithilakriti.com" className="text-[13px] text-[#B8922A] hover:text-[#E8D5A0] transition-colors block">hello@mithilakriti.com</a>
-              
               </div>
             </div>
 
@@ -230,13 +191,12 @@ export default function ContactPage() {
               </div>
               <div>
                 <p className="text-[10px] tracking-[0.18em] uppercase text-[#4a4438] font-medium mb-1">Phone</p>
-           
                 <a href="tel:+917739740853" className="text-[13px] text-[#B8922A] hover:text-[#E8D5A0] transition-colors block">+91 77397 40853</a>
               </div>
             </div>
 
             {/* Hours */}
-            <div className="mb-6">
+            <div>
               <p className="text-[10px] tracking-[0.18em] uppercase text-[#4a4438] font-medium mb-3">Business Hours</p>
               {[['Monday – Friday', '9:00 AM – 6:00 PM'], ['Saturday', '10:00 AM – 4:00 PM'], ['Sunday', null]].map(([day, time]) => (
                 <div key={day} className="flex justify-between text-[12px] py-1.5 border-b border-[#141414] last:border-0">
@@ -245,52 +205,43 @@ export default function ContactPage() {
                 </div>
               ))}
             </div>
+          </div>
+        </div>
 
-          
-
-        {/* ── FAQ ──────────────────────────────────────────────────────── */}
+        {/* FAQ */}
         <div className="border border-[#1a1a1a] rounded-sm p-7 mb-6">
-          <h2
-            className="text-[#E8D5A0] text-[17px] mb-6 pb-4 border-b border-[#1a1a1a]"
-            style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500 }}
-          >
+          <h2 className="text-[#E8D5A0] text-[17px] mb-6 pb-4 border-b border-[#1a1a1a]" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500 }}>
             Frequently Asked Questions
           </h2>
           {FAQS.map(f => <FaqItem key={f.q} q={f.q} a={f.a} />)}
         </div>
 
-        {/* ── CTA ──────────────────────────────────────────────────────── */}
-        <div className="border border-[#B8922A] rounded-sm px-8 py-8 flex flex-col sm:flex-row
-                        items-start sm:items-center justify-between gap-6 relative overflow-hidden">
+        {/* CTA */}
+        <div className="border border-[#B8922A] rounded-sm px-8 py-8 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-6 relative overflow-hidden">
           <span className="absolute top-0 left-0 w-20 h-px bg-[#B8922A]" />
           <span className="absolute bottom-0 right-0 w-20 h-px bg-[#B8922A]" />
           <div>
-            <h3
-              className="text-[#E8D5A0] text-[22px] mb-1"
-              style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500 }}
-            >
+            <h3 className="text-[#E8D5A0] text-[22px] mb-1" style={{ fontFamily: "'Cormorant Garamond', Georgia, serif", fontWeight: 500 }}>
               Ready to bring Mithila home?
             </h3>
-            <p className="text-[#4a4438] text-[12px]">
-              Explore our collection of handpainted art, silk, and handcrafted gifts.
-            </p>
+            <p className="text-[#4a4438] text-[12px]">Explore our collection of handpainted art, silk, and handcrafted gifts.</p>
           </div>
           <Link
             href="/shop"
             className="flex-shrink-0 px-7 py-3 border border-[#B8922A] text-[#B8922A]
                        text-[10.5px] tracking-[0.18em] uppercase font-semibold rounded-sm
-                       hover:bg-[#B8922A] hover:text-[#0C0C0C] transition-colors duration-200 whitespace-nowrap"
+                       hover:bg-[#B8922A] hover:text-white transition-colors duration-200 whitespace-nowrap"
           >
             Shop Now →
           </Link>
         </div>
       </div>
 
-      {/* ── Toast ────────────────────────────────────────────────────────── */}
+      {/* Toast */}
       <div
         className="fixed bottom-6 left-1/2 -translate-x-1/2 bg-white border border-[#B8922A]
-           text-[#B8922A] px-6 py-3 rounded-sm text-[12px] font-medium tracking-wide
-           transition-all duration-300 z-50 pointer-events-none whitespace-nowrap"
+                   text-[#B8922A] px-6 py-3 rounded-sm text-[12px] font-medium tracking-wide
+                   transition-all duration-300 z-50 pointer-events-none whitespace-nowrap"
         style={{ transform: `translateX(-50%) translateY(${toast ? 0 : 80}px)`, opacity: toast ? 1 : 0 }}
       >
         ✓ Message sent! We'll get back to you soon.
