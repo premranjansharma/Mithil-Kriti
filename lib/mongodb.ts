@@ -1,23 +1,18 @@
-// lib/mongodb.js
-import { MongoClient } from 'mongodb';
+import mongoose from 'mongoose';
 
-if (!process.env.MONGODB_URI) {
-  throw new Error('MONGODB_URI environment variable define nahi hai');
-}
+const MONGODB_URI = process.env.MONGODB_URI!;
+if (!MONGODB_URI) throw new Error('MONGODB_URI define nahi hai');
 
-const uri = process.env.MONGODB_URI;
-let client;
-let clientPromise;
+type Cache = { conn: typeof mongoose | null; promise: Promise<typeof mongoose> | null };
+declare global { var mongoose: Cache; }
 
-if (process.env.NODE_ENV === 'development') {
-  if (!global._mongoClientPromise) {
-    client = new MongoClient(uri);
-    global._mongoClientPromise = client.connect();
-  }
-  clientPromise = global._mongoClientPromise;
-} else {
-  client = new MongoClient(uri);
-  clientPromise = client.connect();
-}
+const cached: Cache = global.mongoose ?? (global.mongoose = { conn: null, promise: null });
 
-export default clientPromise;
+const connectDB = async () => {
+  if (cached.conn) return cached.conn;
+  if (!cached.promise) cached.promise = mongoose.connect(MONGODB_URI, { bufferCommands: false });
+  cached.conn = await cached.promise;
+  return cached.conn;
+};
+
+export default connectDB;
