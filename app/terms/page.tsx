@@ -107,7 +107,7 @@ export default function TermsOfServicePage() {
           <div className="space-y-1 text-sm text-gray-700">
             <p><strong>Mithila Kriti</strong></p>
             <p>📧 support@mithilakriti.com</p>
-            <p>📞 +91 98765 43210</p>
+            <p>📞 +91 79031 746910</p>
             <p>📍 Darbhanga, Bihar, India</p>
           </div>
         </section>
